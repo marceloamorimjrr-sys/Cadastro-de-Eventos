@@ -1,0 +1,39 @@
+using EventosApp.Models;
+
+namespace EventosApp.Views
+{
+    public partial class EventRegistrationPage : ContentPage
+    {
+        public EventRegistrationPage()
+        {
+            InitializeComponent();
+            
+            // O BindingContext já está definido no XAML, mas o inicializamos
+            // com DataInicio e DataTérmino preenchidos no Model.
+        }
+
+        private async void OnRegisterButtonClicked(object sender, EventArgs e)
+        {
+            // O BindingContext da página é o objeto Evento que foi preenchido
+            if (BindingContext is Evento evento)
+            {
+                // Verifica se o nome e o local foram preenchidos
+                if (string.IsNullOrWhiteSpace(evento.Nome) || string.IsNullOrWhiteSpace(evento.Local))
+                {
+                    await DisplayAlert("Erro de Validação", "Por favor, preencha o Nome e o Local do evento.", "OK");
+                    return;
+                }
+
+                // Verifica se a data de término é posterior à data de início
+                if (evento.DataTermino < evento.DataInicio)
+                {
+                    await DisplayAlert("Erro de Data", "A Data de Término não pode ser anterior à Data de Início.", "OK");
+                    return;
+                }
+
+                // Navega para a página de resumo, passando o objeto Evento
+                await Navigation.PushAsync(new EventSummaryPage(evento));
+            }
+        }
+    }
+}
