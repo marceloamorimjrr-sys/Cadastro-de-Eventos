@@ -1,0 +1,11 @@
+// Em AppShell.xaml.cs
+public AppShell()
+{
+    InitializeComponent();
+    // Garante que a página de registro é a rota inicial
+    Routing.RegisterRoute(nameof(EventRegistrationPage), typeof(EventRegistrationPage));
+    // Define a rota inicial
+    CurrentItem = new ShellContent() { Content = new EventRegistrationPage() };
+}
+
+Dessa forma, você terá um aplicativo funcional que utiliza `BindingContext` e a lógica de `DateTime`/`TimeSpan` para calcular e exibir corretamente a duração e o custo total do seu evento! Se quiser ajustar o layout ou o estilo, é só modificar o XAML.
