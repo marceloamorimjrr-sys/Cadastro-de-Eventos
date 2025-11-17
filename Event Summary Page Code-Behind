@@ -1,0 +1,17 @@
+using EventosApp.Models;
+
+namespace EventosApp.Views
+{
+    public partial class EventSummaryPage : ContentPage
+    {
+        // Construtor que recebe a Model Evento
+        public EventSummaryPage(Evento evento)
+        {
+            InitializeComponent();
+            
+            // Define o objeto Evento como o BindingContext desta página,
+            // permitindo que o XAML exiba suas propriedades.
+            BindingContext = evento;
+        }
+    }
+}
