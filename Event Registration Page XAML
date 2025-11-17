@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:EventosApp.Models"
+             x:Class="EventosApp.Views.EventRegistrationPage"
+             Title="Cadastro de Evento">
+    
+    <!-- Define um objeto Evento como contexto de binding para a página -->
+    <ContentPage.BindingContext>
+        <models:Evento />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Nome do Evento" FontAttributes="Bold" />
+            <Entry Placeholder="Ex: Conferência Anual de TI" Text="{Binding Nome}" />
+
+            <Label Text="Data de Início" FontAttributes="Bold" />
+            <DatePicker Date="{Binding DataInicio}" />
+
+            <Label Text="Data de Término" FontAttributes="Bold" />
+            <DatePicker Date="{Binding DataTermino}" />
+
+            <Label Text="Número de Participantes" FontAttributes="Bold" />
+            <Entry Placeholder="Apenas números" Keyboard="Numeric" Text="{Binding Participantes}" />
+
+            <Label Text="Local do Evento" FontAttributes="Bold" />
+            <Entry Placeholder="Ex: Centro de Convenções" Text="{Binding Local}" />
+
+            <Label Text="Custo por Participante (R$)" FontAttributes="Bold" />
+            <Entry Placeholder="Ex: 500,00" Keyboard="Numeric" Text="{Binding CustoPorParticipante}" />
+
+            <!-- Exibição em tempo real do custo total e duração (usando as propriedades calculadas) -->
+            <BoxView HeightRequest="1" Color="LightGray" Margin="0, 10" />
+
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Duração do Evento: " FontAttributes="Bold" />
+                        <!-- Exibe a duração total em dias -->
+                        <Span Text="{Binding DuracaoEmDias, StringFormat='{0:F1} dias'}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            
+            <Label FontSize="Medium">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Custo Total Estimado: " FontAttributes="Bold" />
+                        <!-- Exibe o custo total formatado como moeda -->
+                        <Span Text="{Binding CustoTotal, StringFormat='R$ {0:N2}'}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <!-- Botão que acionará a navegação para a página de resumo -->
+            <Button Text="Finalizar Cadastro e Ver Resumo"
+                    Clicked="OnRegisterButtonClicked"
+                    Margin="0, 20, 0, 0"
+                    BackgroundColor="#007ACC"
+                    TextColor="White"
+                    CornerRadius="8" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
